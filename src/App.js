@@ -1,5 +1,11 @@
 import  React, { useState } from "react";
 import { Base } from "./components/Base";
+import { Body } from "./components/Body";
+import { Button } from "./components/Button";
+import { Input } from "./components/Input";
+import { P } from "./components/P";
+
+
 
 export function App(props) {
   const [base, setBase] = useState(props.base)
@@ -11,7 +17,7 @@ export function App(props) {
     console.log('ingrese nota');
     const newTareaIn = {
       tarea: newtarea,
-      id: base.length +1
+      id: base.length +1,
     };
     console.log(newTareaIn);
 
@@ -25,21 +31,25 @@ export function App(props) {
 
   const handleReset = (e) => {
     setBase([]);
-  }
+    setNewTarea('');
 
+  }
+  
   return (
+    <Body>
     <form onSubmit={handleSubmit}>
-      <h3>¿Qué tarea realizaras hoy?</h3>
-        <input type="text" onChange={handleChange} value={newtarea}/>
-        <button disabled={newtarea? "" : "disabled"}>Agregar Tarea</button>
-        <button type='button' onClick={handleReset} disabled={base? base.id : "disabled"}>Reset</button>
+      <h2>¿Qué tarea realizaras hoy?</h2>
+        <Input type="text" onChange={handleChange} value={newtarea}/>
+        <Button disabled={newtarea? "" : "disabled"}>Agregar Tarea</Button>
+        <Button type='button' onClick={handleReset} disabled={base? base.id : "disabled"}>Reset</Button>
       <ol>
           {base.map(item =>{
-          return <li><Base key={item.id} base={item}/></li>
+            return <li><Base key={item.id} base={item}/></li>
           })}
       </ol>
+      <P>By Cristian Manuel Gauna Dev <br/>Nucba Student</P>
     </form>
-
+    </Body>        
   );
 }
 
