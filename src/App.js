@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import  React, { useState } from "react";
+import { Base } from "./components/Base";
 
-function App() {
+export function App(props) {
+  const [base, setBase] = useState(props.base)
+  const [newtarea, setNewTarea] = useState('');
+ 
+ 
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log('ingrese nota');
+    const newTareaIn = {
+      tarea: newtarea,
+      id: base.length +1
+    };
+    console.log(newTareaIn);
+
+    setBase(base.concat(newTareaIn))
+    setNewTarea('');
+  } 
+
+  const handleChange = (e) => {
+    setNewTarea(e.target.value);
+  }
+
+  const handleReset = (e) => {
+    setBase([]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h3>Que tarea debes realizar</h3>
+        <input type="text" onChange={handleChange} value={newtarea}/>
+        <button disabled={newtarea? "" : "disabled"}>Agregar Tarea</button>
+      <ol>
+          {base.map(item =>{
+          return <li><Base key={item.id} base={item}/></li>
+          })}
+      </ol>
+
+      <button onClick={handleReset} disable={setBase? ([]) : "disabled"}>Borrar todas las tareas</button>
+    </form>
+    
   );
 }
 
-export default App;
+export default App
