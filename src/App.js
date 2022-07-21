@@ -29,18 +29,17 @@ export function App(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Que tarea debes realizar</h3>
+      <h3>¿Qué tarea realizaras hoy?</h3>
         <input type="text" onChange={handleChange} value={newtarea}/>
         <button disabled={newtarea? "" : "disabled"}>Agregar Tarea</button>
+        <button type='button' onClick={handleReset} disabled={base? base.id : "disabled"}>Reset</button>
       <ol>
           {base.map(item =>{
           return <li><Base key={item.id} base={item}/></li>
           })}
       </ol>
-
-      <button onClick={handleReset} disable={setBase? ([]) : "disabled"}>Borrar todas las tareas</button>
     </form>
-    
+
   );
 }
 
