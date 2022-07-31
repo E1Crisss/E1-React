@@ -1,9 +1,15 @@
 import  React, { useState } from "react";
 import { Base } from "./components/Base";
 import { Body } from "./components/Body";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import { Button } from "./components/Button";
 import { Input } from "./components/Input";
+import NavBar from "./components/NavBar";
 import { P } from "./components/P";
+import Home from "./pages/index"
+import TodoList from "./pages/TodoList"
+import PokeApi from "./pages/PokeApi"
+
 
 
 
@@ -37,7 +43,17 @@ export function App(props) {
   
   return (
     <Body>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path='/' index element={<Home />}></Route>
+          {/* <Route path='home' element={<Navigate to='/'/>}></Route> */}
+          <Route path='todolist' element={<TodoList />}></Route>{''}
+          <Route path='pokeapi' element={<PokeApi />}></Route>{''}
+        </Routes>
+      </Router>
     <form onSubmit={handleSubmit}>
+      
       <h2>¿Qué tarea realizaras hoy?</h2>
         <Input type="text" onChange={handleChange} value={newtarea}/>
         <Button disabled={newtarea? "" : "disabled"}>Agregar Tarea</Button>
